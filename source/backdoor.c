@@ -11,7 +11,7 @@
 #define SEND_SYNC_REQUEST3 0x30
 #define SVC_BACKDOOR_NUM 0x7B
 #define CURRENT_PROCESS 0xFFFF9004
-#define HANDLE_TABLE_OFFSET 0xDC
+#define HANDLE_TABLE_OFFSET ((is_n3ds) ? 0xDC : 0xD4)
 
 #define EXC_VA_START  ((u32*)0xFFFF0000)
 #define AXIWRAMDSP_RW_MAPPING_OFFSET (0xDFF00000 - 0x1FF00000)
@@ -28,6 +28,8 @@ static void *get_object_ret = NULL;
 void *(*handle_lookup_kern)(void *, u32);
 void **svc_handler_table_writable;
 u32 *svc_acl_check_writable;
+
+extern bool is_n3ds;
 
 static void writeint() { *writeint_arg_addr = writeint_arg_value; }
 
